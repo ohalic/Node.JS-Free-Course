@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+const productRouter = express.Router();
 
 const _filename = fileURLToPath(import.meta.url);
 const _dirname = dirname(_filename);
@@ -18,6 +19,16 @@ app.use(express.static(path.join(_dirname, "/public/")));
 
 app.set("views","./src/views");
 app.set("view engine","ejs")
+
+productRouter.route("/").get((req,res) =>{
+    res.send("Hello World Im Product");
+});
+
+productRouter.route("/1").get((req,res) =>{
+    res.send("Hello World Im Product 1");
+});
+
+app.use("/products", productRouter)
 
 app.get("/", (req, res) => {
     res.render('index',{username: 'Eieiza555', customers: ["Natnicha","Nattanan","Nattapat"]}); // ส่งข้อความกลับไป
