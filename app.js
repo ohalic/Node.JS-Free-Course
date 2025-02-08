@@ -11,15 +11,18 @@ const _filename = fileURLToPath(import.meta.url);
 const _dirname = dirname(_filename);
 
 const app = express(); // สร้างตัวแปร app เรียกใช้ express
-const port = 3000; // กำหนด port 3000
+const PORT = process.env.PORT;
 
 app.use(morgan('combined'));
 app.use(express.static(path.join(_dirname, "/public/")));
 
+app.set("views","./src/views");
+app.set("view engine","ejs")
+
 app.get("/", (req, res) => {
-    res.send('Hello bornToDev UIIAIUIIIAI MEOW YuMMMMy'); // ส่งข้อความกลับไป
+    res.render('index',{username: 'Eieiza555', customers: ["Natnicha","Nattanan","Nattapat"]}); // ส่งข้อความกลับไป
 });
 
-app.listen(port, () => {
-    debug(`Listening on port ${chalk.green(port)}`); // ใช้ chalk.green อย่างถูกต้อง
+app.listen(PORT, () => {
+    debug(`Listening on port ${chalk.green(PORT)}`); // ใช้ chalk.green อย่างถูกต้อง
 });
